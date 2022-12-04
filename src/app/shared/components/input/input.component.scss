@@ -1,0 +1,30 @@
+:host::ng-deep{
+    .group-input{
+        position: relative;
+        width: 100%;
+        .wii-icon{
+            position: absolute;
+            right: 0.3125rem;
+            width: 1.875rem;
+            height: 1.875rem;
+            top: 0.3125rem;
+        }
+    }
+    .class-input2{
+        background: var(--white);
+        border: 1px solid var(--gray-three);
+        border-radius: 1.25rem;
+        outline: 0;
+        line-height: 1;
+        text-align: left;
+        color: var(--gray);
+        font-size: 0.875rem;
+        min-height: 2.5rem;
+        align-items: center;
+        width: 100%;
+        padding-top: 0.625rem;
+        padding-right: 2.5rem;
+        padding-bottom: 0.625rem;
+        padding-left: 1.25rem;
+    }
+}

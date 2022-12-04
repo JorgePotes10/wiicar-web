@@ -1,0 +1,96 @@
+:host::ng-deep{
+    .ant-table-footer, .ant-table-thead>tr>th{
+        background-color: var(--gray-one);
+        border-top: 0.0625rem solid var(--gray-three);
+        border-bottom: 0.0625rem solid var(--gray-three);
+        font-weight: bold;
+    }
+    .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before{
+        display: none;
+    }
+    .ant-table-container, .ant-table-container table>thead>tr:first-child th:first-child{
+        border-top-left-radius: 0.375rem;
+        border-bottom-left-radius: 0.375rem;
+    }
+    .ant-table-container, .ant-table-container table>thead>tr:first-child th:last-child{
+        border-top-right-radius: 0.375rem;
+        border-bottom-right-radius: 0.375rem;
+    }
+    .ant-table-tbody>tr>td{
+        border: 0;
+        padding: 10px 16px;
+    }
+    thead tr th:first-child{
+        border-left: 0.0625rem solid var(--gray-three) !important;
+    }
+    thead tr th:last-child{
+        border-right: 0.0625rem solid var(--gray-three) !important;
+    }
+    .ant-table-container, .ant-table-container table tbody tr:nth-child(odd){
+        background-color: var(--white);
+    }
+    .ant-table-container, .ant-table-container table tbody tr:nth-child(even){
+        background-color: var(--gray-one);
+    }
+    .ant-table-column-sorters{
+        display: inline-flex;
+    }
+    .ant-table-column-sorters .ant-table-column-sorter{
+        margin-left: 0.625rem;
+    }
+    .ant-table-column-sorters span{
+        color: var(--black);
+    }
+    .ant-checkbox-checked .ant-checkbox-inner{
+        background-color: var(--white);
+        border-color: var(--red);
+        border-width: 2px;
+        border-radius: 4px;
+    }
+    .ant-checkbox-checked .ant-checkbox-inner::after{
+        border: 2px solid var(--red);
+        border-top: 0;
+        border-left: 0;
+    }
+    .ant-checkbox-checked.ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-checked.ant-checkbox:focus .ant-checkbox-inner, .ant-checkbox-checked::after{
+        border-color: var(--red) !important;
+    }
+    :not(.ant-checkbox-checked).ant-checkbox:hover .ant-checkbox-inner,:not(.ant-checkbox-checked).ant-checkbox:focus .ant-checkbox-inner{
+        border-color: var(--gray-three) !important;
+    }
+    .ant-checkbox-indeterminate .ant-checkbox-inner::after{
+        background-color: var(--red);
+    }
+    .ant-checkbox-input:focus+.ant-checkbox-inner, .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner{
+        border-color: var(--gray-three) !important;
+    }
+    .ant-checkbox-checked .ant-checkbox-input:focus+.ant-checkbox-inner, .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner{
+        border-color: var(--red) !important;
+    }
+    table>tbody>tr td:last-child{
+        display: flex;
+        align-items: center;
+    }
+    .content{
+        padding: 1.25rem;
+        border: 0.0625rem solid var(--gray);
+        background-color: var(--white);
+    }
+    .wii-footer {
+        position: fixed;
+        min-height: 70px;
+        width: 100%;
+        background-color: var(--white);
+        bottom: 0px;
+        margin-bottom: 0px;
+        box-shadow: 3px 4px 9px 1px var(--gray-three);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        left: 0;
+    }
+    .disabled_icon{
+        color: var(--gray-three);
+    }
+}

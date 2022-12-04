@@ -1,0 +1,33 @@
+:root{
+    --gray-one:#F2F3F7;
+    --gray-two:#15223214;
+    --gray-three:#C5CBDA;
+    --gray-black:#767981;
+    --white:#FFFFFF;
+    --bone:#0000001A;
+    --piel:#FDEAE8;
+    --red:#E63020;
+    --black:#000000;
+    --green:#25D366;
+}
+.mr-11{
+    margin-right: 0.6875rem;
+}
+.mr-12{
+    margin-right: 0.75rem;
+}
+.ml-11{
+    margin-left: 0.6875rem;
+}
+.mr-21{
+    margin-right: 1.3125rem;
+}
+.mr-20{
+    margin-right: 1.25rem;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+@import './../components/buttons.scss';
+@import './../components/logo.scss';
+@import './../components/iconos.scss';

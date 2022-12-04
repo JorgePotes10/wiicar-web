@@ -1,0 +1,43 @@
+:host::ng-deep{
+    .group-pagination{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .group-pagination .wii-input{
+        border: 1px solid var(--gray-three);
+        border-radius: 1.25rem;
+        height: 2.5rem;
+        width: 4.375rem;
+        background: var(--white);
+        border-radius: 1.25rem;
+        outline: 0;
+        line-height: 1;
+        color: var(--black);
+        font-size: 1rem;
+        min-height: 2.5rem;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .group-pagination .arrow{
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .group-pagination .arrow.prev{
+        margin-right: 1.25rem;   
+    }
+    
+    .group-pagination .wii-icon{
+        width: 2.5rem;
+        height: 2.5rem;
+        svg, i{
+            width: 1rem;
+            font-size: 1rem;
+        }
+    }
+
+}   

@@ -1,0 +1,54 @@
+.wii-footer {
+    position: fixed;
+    min-height: 70px;
+    width: 100%;
+    background-color: var(--white);
+    bottom: 0px;
+    margin-bottom: 0px;
+    box-shadow: 3px 4px 9px 1px var(--gray-three);
+}
+.wii-footer{
+    display: flex;
+    align-items: center;
+}
+.group-input .class-input{
+    background: var(--white) 0% 0% no-repeat padding-box;
+    border-radius: 1.56rem;
+    border: 1px solid var(--gray-three);
+    padding: 0.75rem 2.25rem 0.75rem 0.75rem;
+    font-size: 1rem;
+    outline: none;
+    text-align: left;
+    color: var(--gray);
+    opacity: 1;
+    font-size: 14px;
+    width: 300px;
+    min-height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.group-input{
+    position: relative;
+}
+.group-input .input-icon{
+    position: absolute;
+    right: 0.5rem;
+    top: 1rem;
+    transform: rotate(90deg);
+    color: var(--gray);
+}
+.group-input .input-icon-down{
+    position: absolute;
+    right: 0.5rem;
+    top: 1rem;
+    color: var(--gray);
+}
+.group-input .result{
+    background-color: var(--piel);
+    border-radius: 25px;
+    width: 85px;
+    color: var(--red);
+    font-weight: bold;
+    margin: 0;
+}

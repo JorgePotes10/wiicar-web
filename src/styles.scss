@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import './assets/styles/global.scss';
+
+body{
+    background: #F2F3F7 0% 0% no-repeat padding-box !important;
+    height: 100vh;
+}

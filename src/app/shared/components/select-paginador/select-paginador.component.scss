@@ -1,0 +1,43 @@
+:host::ng-deep{
+    .group-select{
+        position: relative;
+        border-radius: 1.56rem;
+        border: 1px solid var(--gray-three);
+        display: flex;
+        align-items: center;
+        padding-right: 5px;
+        justify-content: space-between;
+        padding-left: 5px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        height: 40px;
+        cursor: pointer;
+        .wii-icon{
+            width: 1.875rem;
+            height: 1.875rem;
+        }
+        .text-select{
+            margin-left: 1.5625rem;
+            margin-right: 0.6875rem;
+            font-size: 1rem;
+        }
+    }
+    .group-select .class-input{
+        border: 0;
+        line-height: 1;
+        text-align: left;
+        color: var(--gray);
+        font-size: 0.875rem;
+        height: 30px;
+        align-items: center;
+        position: relative;
+        background-color: var(--piel);
+        border-radius: 1.5625rem;
+        width: 5.625rem;
+    }
+    .group-select .tag{
+        color: var(--red);
+        font-weight: bold;
+        margin: 0;
+    }
+}

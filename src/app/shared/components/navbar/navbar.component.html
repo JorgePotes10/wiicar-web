@@ -1,0 +1,11 @@
+
+    <nav class="wii-navbar">
+        <ul>
+            <li *ngFor="let item of menu" [ngClass]="{'item-activo': item.activo}" [title]="item.name">
+                <fa-icon [icon]="item.icon" class="wii-icon"></fa-icon>
+                 {{ item.name }}
+            </li>
+        </ul>
+    </nav>
+
+    

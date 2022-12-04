@@ -1,0 +1,110 @@
+<div class="content">
+    <nz-table 
+        #basicTable
+        [nzPageIndex]="num_actual_pagina.value"
+        [nzShowPagination]="false"
+        [nzPageSize]="num_pagina.value" 
+        [nzData]="list_table"
+        (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+        <thead>   
+          <tr>
+            <th
+            [(nzChecked)]="checked"
+            [nzIndeterminate]="indeterminate"
+            (nzCheckedChange)="onAllChecked($event)"
+            ></th>
+            <th *ngFor="let column of titles" [nzShowSort]="true" [nzSortFn]="column.compare">
+                {{ column.name }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+            <td >{{ data.id }}</td>
+            <td>{{ data.placa }}</td>
+            <td>{{ data.marca }}</td>
+            <td>{{ data.modelo }}</td>
+            <td>{{ data.kilometraje }}</td>
+            <td>{{ data.transmision }}</td>
+            <td>{{ data.tipo }}</td>
+            <td>{{ data.precio }}</td>
+            <td>
+                {{ data.proviniencia}}
+                <button class="wii-button-new mr-11">
+                    NUEVO
+                    <fa-icon [icon]="icons.eye"></fa-icon>
+                </button>
+                <button style="width: 7.375rem;" class="ml-11" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+                    Acciones
+                    <div class="wii-icon">
+                        <span nz-icon nzType="caret-down"></span>
+                    </div>  
+                </button>
+                  <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <ul nz-menu>
+                      <li nz-menu-item>Editar</li>
+                      <li nz-menu-item>Almacenar</li>
+                    </ul>
+                  </nz-dropdown-menu>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+</div>
+<div class="wii-footer" [formGroup]="form">
+    <div class="row w-100 mx-auto">
+        <div class="col-3">
+            <app-input>
+                <input type="text" class="class-input2" placeholder="Busqueda por coincidencia">
+                <fa-icon [icon]="icons.search" class="wii-icon"></fa-icon>
+            </app-input>
+        </div>
+        <div class="col-3">
+            <app-select-paginador nz-dropdown nzTrigger="click" [nzDropdownMenu]="opciones">
+                <button class="class-input">
+                    <p class="m-0 tag text-center">Resultados</p>
+                </button>
+                <div class="d-flex justify-content-end align-items-center">
+                    <span class="text-select">{{ num_pagina.value }}</span>
+                    <fa-icon [icon]="icons.down" class="wii-icon"></fa-icon>
+                </div>
+                <nz-dropdown-menu #opciones="nzDropdownMenu">
+                    <ul nz-menu>
+                      <li (click)="cambioPagina(10)" nz-menu-item>10</li>
+                      <li (click)="cambioPagina(20)" nz-menu-item>20</li>
+                      <li (click)="cambioPagina(50)" nz-menu-item>50</li>
+                      <li (click)="cambioPagina(100)" nz-menu-item>100</li>
+                    </ul>
+                </nz-dropdown-menu>
+            </app-select-paginador>
+        </div>
+        <div class="col-3">
+            <ng-template #showTotal let-total>
+                <span>{{total}}</span>
+            </ng-template>
+            <app-paginador>
+                <fa-icon [icon]="icons.arrow_left" [ngClass]="{'disabled_icon': num_actual_pagina.value == 1}" class="wii-icon mr-20 cursor-pointer" title="Anterior" (click)="pasarPagina(0,basicTable.nzPageSize)"></fa-icon>
+                <input class="wii-input mr-21" formControlName="num_actual_pagina">
+                <label class="mr-12">De</label>
+                <label class="mr-12">{{list_table.length}}</label>
+                <fa-icon [icon]="icons.arrow_right" [ngClass]="{'disabled_icon': pageSise == num_actual_pagina.value}" class="wii-icon cursor-pointer" (click)="pasarPagina(1,basicTable.nzPageSize)" title="Siguiente"></fa-icon>
+            </app-paginador>
+        </div>
+        <div class="col-3">
+            <button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+                Acciones
+                <div class="wii-icon">
+                    <span nz-icon nzType="caret-down"></span>
+                </div>  
+            </button>
+              <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item>Editar</li>
+                  <li nz-menu-item>Almacenar</li>
+                </ul>
+              </nz-dropdown-menu>
+        </div>
+    </div>
+</div>
+
