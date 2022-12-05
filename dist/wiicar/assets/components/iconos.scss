@@ -1,0 +1,13 @@
+.wii-icon{
+    padding: 0.9375rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wii-icon i,.wii-icon svg {
+    font-size: 1.25rem;
+    width: 1.25rem;
+}
+.wii-icon-primary{
+    color: var(--red);
+}
