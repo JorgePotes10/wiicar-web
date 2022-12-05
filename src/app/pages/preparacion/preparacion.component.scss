@@ -84,8 +84,8 @@
         bottom: 0px;
         margin-bottom: 0px;
         box-shadow: 3px 4px 9px 1px var(--gray-three);
+        overflow-x: auto;
         display: flex;
-        justify-content: center;
         align-items: center;
         margin: auto;
         left: 0;
@@ -93,4 +93,16 @@
     .disabled_icon{
         color: var(--gray-three);
     }
+    .row>*{
+        padding-right: 0.625rem;
+        padding-left: 0.625rem;
+    }
+    .item-activo{
+        color: var(--red);
+    }
+    // .contentModal{
+    //     display: flex;
+    //     justify-content: start;
+    //     align-items: center;
+    // }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { faAngleDown, faChevronLeft, faChevronRight, faEye, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NzTableComponent } from 'ng-zorro-antd/table';
+import { randomPlaca, randomMarca, randomModelo, randomKilomnetraje, randomTransmision } from './utils-preparacion';
 
 @Component({
   selector: 'app-preparacion',
@@ -11,6 +12,8 @@ import { NzTableComponent } from 'ng-zorro-antd/table';
 export class PreparacionComponent implements OnInit {
 
   @ViewChild('basicTable') table!: NzTableComponent<any>;
+
+  cargaMasiva:boolean=false;
   pageSise: number=0;
   icons:any={eye:faEye,down:faAngleDown,search:faSearch, arrow_left: faChevronLeft, arrow_right:faChevronRight}
   titles:any[]= [
@@ -50,58 +53,7 @@ export class PreparacionComponent implements OnInit {
       name: 'Proviniencia'
     }
 ]
-  list_table: any[] = [
-    {
-      id: 952,
-      placa: 'IJW871',
-      marca: 'Mazda',
-      modelo: 2,
-      kilometraje: '68.073',
-      transmision: 'Mecanica',
-      tipo: 'Automovil',
-      precio: '$40.900.000'
-    },
-    {
-      id: '543',
-      placa: 'IJW871',
-      marca: 'Chevrolet',
-      modelo: 2,
-      kilometraje: '68.073',
-      transmision: 'Automatica',
-      tipo: 'Camioneta',
-      precio: '$40.900.000'
-    },
-    {
-      id: '881',
-      placa: 'IJW871',
-      marca: 'Toyota',
-      modelo: 2,
-      kilometraje: '68.073',
-      transmision: 'Mecanica',
-      tipo: 'Bus',
-      precio: '$40.900.000'
-    },
-    {
-      id: '367',
-      placa: 'IJW871',
-      marca: 'Sandero',
-      modelo: 2,
-      kilometraje: '68.073',
-      transmision: 'Automatica',
-      tipo: 'Coche',
-      precio: '$40.900.000'
-    },
-    {
-      id: '406',
-      placa: 'IJW871',
-      marca: 'Mazda',
-      modelo: 2,
-      kilometraje: '68.073',
-      transmision: 'Mecanica',
-      tipo: 'Moto',
-      precio: '$40.900.000'
-    }
-  ];
+  list_table: any[] = [];
 
   
   checked = false;
@@ -114,28 +66,51 @@ export class PreparacionComponent implements OnInit {
 
   form: FormGroup = this.formBuilder.group({
     num_pagina:[10],
-    num_actual_pagina:[1]
+    num_actual_pagina:[1],
+    data_search:[null]
   })
 
   get num_pagina():any{return this.form.get('num_pagina')}
   get num_actual_pagina():any{return this.form.get('num_actual_pagina')}
+  get data_search():any{return this.form.get('data_search')}
 
   constructor(private formBuilder:FormBuilder){
-    this.list_table = [];
-    for(let i = 0; i <= 100; i++){
-      this.list_table.push(
-        {
-          id: '406',
-          placa: 'IJW871',
-          marca: 'Mazda',
-          modelo: 2,
-          kilometraje: '68.073',
-          transmision: 'Mecanica',
-          tipo: 'Moto',
-          precio: '$40.900.000'
-        }
-      )
-    }
+    // this.list_table = [];
+    // for(let i = 0; i <= 100; i++){
+    //   this.list_table.push(
+    //     {
+    //       id: i,
+    //       placa: randomPlaca(6),
+    //       marca: randomMarca(),
+    //       modelo: randomModelo(),
+    //       kilometraje: randomKilomnetraje(),
+    //       transmision: randomTransmision(),
+    //       tipo: 'Automovil',
+    //       precio: '$40.900.000'
+    //     }
+    //   )
+    // }
+  }
+
+  cargaDatos(){
+    setTimeout(()=>{
+      this.list_table = [];
+      for(let i = 0; i <= 100; i++){
+        this.list_table.push(
+          {
+            id: i,
+            placa: randomPlaca(6),
+            marca: randomMarca(),
+            modelo: randomModelo(),
+            kilometraje: randomKilomnetraje(),
+            transmision: randomTransmision(),
+            tipo: 'Automovil',
+            precio: '$40.900.000'
+          }
+        )
+      }  
+      this.cargaMasiva = true;
+    }, 5000)
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
@@ -159,13 +134,22 @@ export class PreparacionComponent implements OnInit {
   onCurrentPageDataChange($event: readonly any[]): void {
     this.listOfCurrentPageData = $event;
     this.refreshCheckedStatus();
-    this.pageSise=this.calcularPaginas(this.num_pagina.value);
+    this.pageSise=this.calcularPaginas(this.num_pagina.value,
+      this.table != null ? this.table.nzData.length : this.list_table.length);
     console.log(this.pageSise);
   }
 
   refreshCheckedStatus(): void {
-    this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
-    this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
+    if(this.listOfCurrentPageData.length>0){
+      this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
+      this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
+    }else{
+      this.checked=false;
+    }
+    
+  }
+  onPageIndexChange(event:any){
+    this.num_actual_pagina.setValue(event);
   }
 
   ngOnInit(): void {
@@ -180,12 +164,13 @@ export class PreparacionComponent implements OnInit {
   }
   cambioPagina(num: number){
     this.num_pagina.setValue(num);
-    console.log(this.table);
+    this.calcularPaginas(this.num_pagina.value, this.table.nzData.length);
   }
-  pasarPagina(tipo:number, pageSize: number){
+  pasarPagina(tipo:number){
+    let tamanoPagina = this.calcularPaginas(this.num_pagina.value, this.table.nzData.length);
     if(tipo==1){
       let sig_pagina = this.num_actual_pagina.value+1;
-      if(sig_pagina<=pageSize){
+      if(sig_pagina<=tamanoPagina){
         this.num_actual_pagina.setValue(this.num_actual_pagina.value+1);
       }
     }else{
@@ -195,7 +180,26 @@ export class PreparacionComponent implements OnInit {
       }
     }
   }
-  calcularPaginas(pageSize:number){
-   return Math.ceil(this.list_table.length/pageSize);
+  calcularPaginas(pageSize:number, longitudTabla: number){
+   return Math.ceil(longitudTabla/pageSize);
   }
+  isVisible = false;
+  isOkLoading = false;
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+    }, 3000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+  
 }

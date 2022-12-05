@@ -1,7 +1,7 @@
 <div class="wii-header">
-    <div class="d-flex">
-        <fa-icon [icon]="icon.nav" class="wii-icon wii-icon-primary"></fa-icon>
-        <fa-icon [icon]="icon.close" class="wii-icon wii-icon-primary"></fa-icon> 
+    <div class="d-flex" (click)="collapseMenu()">
+        <fa-icon [icon]="icon.nav" class="wii-icon wii-icon-primary cursor-pointer" *ngIf="collapse"></fa-icon>
+        <fa-icon [icon]="icon.close" class="wii-icon wii-icon-primary cursor-pointer" *ngIf="!collapse"></fa-icon> 
     </div>
     <div>
         <img src="../../../../assets/images/wiicar.png" alt="logo" class="wii-logo">

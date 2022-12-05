@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { faBars, faPowerOff, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,6 +7,9 @@ import { faBars, faPowerOff, faXmark } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  @Output() getCollapse = new EventEmitter<any>();
+  collapse:boolean = false;
 
   icon: any = 
     {
@@ -17,6 +20,12 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  collapseMenu(){
+    this.collapse = !this.collapse;
+    this.getCollapse.emit(this.collapse);
+    
   }
 
 }

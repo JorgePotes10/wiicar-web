@@ -1,11 +1,15 @@
 .wii-header{
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
+    z-index: 900;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding-left: 25px;
-    padding-right: 25px;
-    min-height: 70px;
-    border-bottom: 1px solid var(--gray-three);
+    padding-left: 1.5625rem;
+    padding-right: 1.5625rem;
+    min-height: 4.375rem;
+    border-bottom: 0.0625rem solid var(--gray-three);
     background-color: var(--white);
 }

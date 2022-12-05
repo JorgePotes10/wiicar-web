@@ -1,11 +1,18 @@
-<div class="content">
-    <nz-table 
+<div class="content content-margin overflow-auto" style="margin-bottom: 4.6875rem; margin-top: 7.5rem;">
+    <nz-card *ngIf="!cargaMasiva" 
+             style="display: flex; justify-content: center; align-items:center;background-color: var(--gray-one); border:1px solid var(--gray-three); border-radius: 6px; height: 60px;">
+             <a style="color: var(--gray-three); font-family: 'Roboto'; font-size: 14px;">
+              No existen datos para mostrar</a>
+      </nz-card>
+    <nz-table *ngIf="cargaMasiva"
         #basicTable
         [nzPageIndex]="num_actual_pagina.value"
         [nzShowPagination]="false"
         [nzPageSize]="num_pagina.value" 
-        [nzData]="list_table"
-        (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+        [nzData]="list_table | filtro:{data_search:data_search.value, keys:['placa','marca']}"
+        (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+        (nzPageIndexChange)="onPageIndexChange($event)"
+        style="min-width: 75rem;">
         <thead>   
           <tr>
             <th
@@ -18,7 +25,7 @@
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="basicTable.nzData.length>0">
           <tr *ngFor="let data of basicTable.data">
             <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
             <td >{{ data.id }}</td>
@@ -50,22 +57,29 @@
             </td>
           </tr>
         </tbody>
+        <ng-container *ngIf="basicTable.nzData.length==0">
+            <tr>
+                <td colspan="12">
+                    <nz-empty nzNotFoundImage="simple"></nz-empty>
+                </td>
+            </tr>
+        </ng-container>
       </nz-table>
 </div>
-<div class="wii-footer" [formGroup]="form">
-    <div class="row w-100 mx-auto">
-        <div class="col-3">
+<div class="wii-footer justify-content-xl-center justify-content-start" [formGroup]="form">
+    <div class="row w-100" style="padding-left: 2rem ; padding-right: 2rem; min-width: 75rem" >
+        <div class="col-xxl-3 col-4">
             <app-input>
-                <input type="text" class="class-input2" placeholder="Busqueda por coincidencia">
+                <input type="text" formControlName="data_search" class="class-input2" placeholder="Busqueda por coincidencia">
                 <fa-icon [icon]="icons.search" class="wii-icon"></fa-icon>
             </app-input>
         </div>
-        <div class="col-3">
+        <div class="col-xxl-3 col-2">
             <app-select-paginador nz-dropdown nzTrigger="click" [nzDropdownMenu]="opciones">
                 <button class="class-input">
                     <p class="m-0 tag text-center">Resultados</p>
                 </button>
-                <div class="d-flex justify-content-end align-items-center">
+                <div class="flex-grow-1 d-flex justify-content-end align-items-center">
                     <span class="text-select">{{ num_pagina.value }}</span>
                     <fa-icon [icon]="icons.down" class="wii-icon"></fa-icon>
                 </div>
@@ -79,19 +93,19 @@
                 </nz-dropdown-menu>
             </app-select-paginador>
         </div>
-        <div class="col-3">
+        <div class="col-xxl-3 col-3" style="max-width: 19.625rem;">
             <ng-template #showTotal let-total>
                 <span>{{total}}</span>
             </ng-template>
             <app-paginador>
-                <fa-icon [icon]="icons.arrow_left" [ngClass]="{'disabled_icon': num_actual_pagina.value == 1}" class="wii-icon mr-20 cursor-pointer" title="Anterior" (click)="pasarPagina(0,basicTable.nzPageSize)"></fa-icon>
+                <fa-icon [icon]="icons.arrow_left" [ngClass]="{'disabled_icon': num_actual_pagina.value == 1}" class="wii-icon mr-20 cursor-pointer" title="Anterior" (click)="pasarPagina(0)"></fa-icon>
                 <input class="wii-input mr-21" formControlName="num_actual_pagina">
                 <label class="mr-12">De</label>
                 <label class="mr-12">{{list_table.length}}</label>
-                <fa-icon [icon]="icons.arrow_right" [ngClass]="{'disabled_icon': pageSise == num_actual_pagina.value}" class="wii-icon cursor-pointer" (click)="pasarPagina(1,basicTable.nzPageSize)" title="Siguiente"></fa-icon>
+                <fa-icon [icon]="icons.arrow_right" [ngClass]="{'disabled_icon': pageSise == num_actual_pagina.value}" class="wii-icon cursor-pointer" (click)="pasarPagina(1)" title="Siguiente"></fa-icon>
             </app-paginador>
         </div>
-        <div class="col-3">
+        <div class="col-xxl-3 col-3">
             <button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
                 Acciones
                 <div class="wii-icon">
@@ -100,11 +114,38 @@
             </button>
               <nz-dropdown-menu #menu="nzDropdownMenu">
                 <ul nz-menu>
-                  <li nz-menu-item>Editar</li>
-                  <li nz-menu-item>Almacenar</li>
+                  <li *ngIf="cargaMasiva" nz-menu-item>Almacenar</li>
+                  <li nz-menu-item (click)="cargaDatos(); showModal();handleOk()">Cargue masivo</li>
+                  <li *ngIf="cargaMasiva" nz-menu-item>Descargar Excel</li>
+                  <li nz-menu-item>Nuevo registro</li>
+                  <li [ngStyle]="{'color':'var(--red)'}" *ngIf="cargaMasiva" nz-menu-item>Eliminar</li>
                 </ul>
               </nz-dropdown-menu>
         </div>
     </div>
 </div>
 
+<nz-modal [nzFooter]="null" 
+          [(nzVisible)]="isVisible" 
+          (nzOnCancel)="handleCancel()"
+          nzTitle="Cargando"
+          (nzOnOk)="handleOk()"
+          [nzOkLoading]="isOkLoading"
+          nzClosable="false">
+    <div *nzModalContent class="row">
+      <div class="col-2">
+          <div class="bg-gray1">
+            <div class="spinner-border" style="color: var(--gray-three);width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+      </div>
+      <div class="col-8 ms-5 p-0 d-flex flex-column">
+        <p class="mb-2 font-color font1">Cargue masivo</p>
+        <p class="mb-0 font2">Espera un momento mientras procesamos los <br>
+         datos, esto puede tardar unos minutos.
+        </p>
+      </div>
+    </div>
+  </nz-modal>
+  

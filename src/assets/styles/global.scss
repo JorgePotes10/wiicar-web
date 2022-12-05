@@ -28,6 +28,30 @@
 .cursor-pointer{
     cursor: pointer;
 }
+.content-margin{
+    margin-bottom: 4.6875rem; 
+    margin-top: 7.5rem;
+}
+.bg-gray1{
+    background-color: var(--gray-one);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+    width: 90px;
+}
+.font-color{
+    color: var(--gray-three);
+}
+.font1{
+    font-family: 'Roboto';
+    font-weight: bold;
+}
+.font2{
+    font-family: 'Roboto';
+    font-weight: 600;
+}
 @import './../components/buttons.scss';
 @import './../components/logo.scss';
 @import './../components/iconos.scss';

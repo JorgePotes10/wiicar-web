@@ -17,7 +17,6 @@
             height: 1.875rem;
         }
         .text-select{
-            margin-left: 1.5625rem;
             margin-right: 0.6875rem;
             font-size: 1rem;
         }
@@ -33,7 +32,8 @@
         position: relative;
         background-color: var(--piel);
         border-radius: 1.5625rem;
-        width: 5.625rem;
+        // width: 5.625rem;
+        flex-grow: 1;
     }
     .group-select .tag{
         color: var(--red);

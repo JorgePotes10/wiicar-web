@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
+  retraer:boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  getCollapse(event:any){
+    this.retraer = event;
   }
 
 }

@@ -6,6 +6,7 @@ import { PaginadorComponent } from './components/paginador/paginador.component';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { SelectPaginadorComponent } from './components/select-paginador/select-paginador.component';
 import { InputComponent } from './components/input/input.component';
+import { FiltroPipe } from './filtro.pipe';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { InputComponent } from './components/input/input.component';
     NavbarComponent,
     PaginadorComponent,
     SelectPaginadorComponent,
-    InputComponent
+    InputComponent,
+    FiltroPipe
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { InputComponent } from './components/input/input.component';
     PaginadorComponent,
     NzPaginationModule,
     SelectPaginadorComponent,
-    InputComponent
+    InputComponent,
+    FiltroPipe
   ]
 })
 export class SharedModule { }

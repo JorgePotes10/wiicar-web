@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { faCar, faCarOn, faMoneyBillTransfer, faTags } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,7 +7,9 @@ import { faCar, faCarOn, faMoneyBillTransfer, faTags } from '@fortawesome/free-s
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
- 
+  
+  @Input() retraer:boolean = false;
+
   menu = [
     {
       name:'Preparacion',
@@ -35,4 +37,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  mostrarNav:boolean=false;
+
+  hide(){
+    this.mostrarNav=true;
+  }
+  
 }
